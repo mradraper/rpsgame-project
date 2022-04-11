@@ -1,4 +1,4 @@
-console.log("rps game script test");
+console.log("To play Rock Paper Scissors enter game();");
 
 function computerPlay() {
     // Give the choices available to the computer by creating an array with the three options.
@@ -13,45 +13,76 @@ function computerPlay() {
     return computerSelection;
 }
 
-// Take the player's selection and put it in a variable.
-const playerSelection = prompt("What do you want to choose in this game of Rock, Paper, Scissors?").toLowerCase();
+// Each game starts with zero wins, ties, and losses.
+let win = 0;
+let tie = 0;
+let loss = 0;
 
-// Compare what the player selected to what the computer selected.
-
-// If the player selected rock, they win if the computer selected scissors, and lose if the computer selected paper.
-// If the player selected paper, they win if the computer selected rock, and lose if the computer selected scissors.
-// If the player selected scissors, they win if the computer selected paper, and lose if the computer selected rock.
-// Determine whether the computer or the player won.
-// Tell the player the result of the game.
-function playRound() {
-    let computerSelection = computerPlay();
+// Play a game of rock, paper, scissors.
+function playRound(i) {
+    // Ask the player to choose what to play and put it in a variable.
+    const playerSelection = prompt(`Round ${i}: What do you choose in this round of Rock, Paper, Scissors?`).toLowerCase();
+    // Remind the player what they chose to play
+    console.log(`In round ${i} you chose `,playerSelection);
+    // Have the computer choose what to play
+    const computerSelection = computerPlay();
+    // Compare what the player selected to what the computer selected.
+    // Determine whether the computer or the player won.
     switch (true) {
+    // If the player selected rock, they win if the computer selected scissors, tie if the computer selected rock, and lose if the computer selected paper.
         case playerSelection == "rock" && computerSelection == "Rock":
-            return ("You both chose Rock. You tie!");
+            console.log("You both chose Rock. You tie!");
+            return ("tie",++tie);
             break;
         case playerSelection == "rock" && computerSelection == "Paper":
-            return ("You lose! Paper covers Rock");
+            console.log("You lose! Paper covers Rock");
+            return ("loss",++loss);
             break;
         case playerSelection == "rock" && computerSelection == "Scissors":
-            return ("You win! Rock bashes scissors");
+            console.log("You win! Rock bashes scissors");
+            return ("win",++win);
             break;
+    // If the player selected paper, they win if the computer selected rock, tie if the computer selected paper, and lose if the computer selected scissors.
         case playerSelection == "paper" && computerSelection == "Rock":
-            return ("You win! Paper covers rock");
+            console.log("You win! Paper covers rock");
+            return ("win",++win);
             break;
        case playerSelection == "paper" && computerSelection == "Paper":
-            return ("You tie! You both chose paper");
+            console.log("You tie! You both chose paper");
+            return ("tie",++tie);
             break;
         case playerSelection == "paper" && computerSelection == "Scissors":
-            return ("You lose! Scissors slice paper");
+            console.log("You lose! Scissors slice paper");
+            return ("loss",++loss);
             break;
+    // If the player selected scissors, they win if the computer selected paper, tie if the computer selected scissors, and lose if the computer selected rock.
         case playerSelection == "scissors" && computerSelection == "Rock":
-            return ("You lose! Rock bashes scissors");
+            console.log("You lose! Rock bashes scissors");
+            return ("loss",++loss);
             break;
         case playerSelection == "scissors" && computerSelection == "Paper":
-            return ("You win! Scissors slice paper");
+            console.log("You win! Scissors slice paper");
+            return ("win",++win);
             break;
         case playerSelection == "scissors" && computerSelection == "Scissors":
-            return ("You tie! You both chose scissors");
+            console.log("You tie! You both chose scissors");
+            return ("tie",++tie);
             break;
+        }
+}
+
+function game() {
+
+    for (let i = 1; i < 7; i++) {
+        if (i < 6) {
+            playRound(i);
+            console.log(`Round ${i} score - Player Wins: ${win}, Ties: ${tie}, Computer Wins: ${loss}`);
+        } else if (win > loss) {
+            console.log(`YOU WIN THE GAME!! ${win} to ${loss}`);
+        } else if (win === loss) {
+            console.log(`Tie game! ${win} to ${loss}`);
+        } else {
+            console.log(`The computer wins... ${loss} to ${win}`);
+        }
     }
 }
