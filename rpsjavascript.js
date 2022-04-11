@@ -71,13 +71,18 @@ function playRound(i) {
         }
 }
 
+// Write a game function
 function game() {
 
+// Play rounds of RPS until 5 rounds have been played, then report the winner.
     for (let i = 1; i < 7; i++) {
+        // For rounds 1-5 play a game of RPS against the computer and record the result.
         if (i < 6) {
             playRound(i);
             console.log(`Round ${i} score - Player Wins: ${win}, Ties: ${tie}, Computer Wins: ${loss}`);
-        } else if (win > loss) {
+        }
+        // After 5 rounds have been played, determine the winner of the full game by determining who won the most rounds.
+        else if (win > loss) {
             console.log(`YOU WIN THE GAME!! ${win} to ${loss}`);
         } else if (win === loss) {
             console.log(`Tie game! ${win} to ${loss}`);
